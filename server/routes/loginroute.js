@@ -3,6 +3,7 @@ const pool = require("../db");
 const bcrypt = require("bcrypt");
 const jwtgenerator = require("../utils/jwtgenerator");
 const validinfo = require("../middleware/validinfo");
+const authorisation=require("../middleware/authorisation");
 
 router.post("/login", validinfo, async (req, res) => {
     try {
@@ -11,12 +12,12 @@ router.post("/login", validinfo, async (req, res) => {
         const response = await pool.query("SELECT * FROM authorise WHERE user_email = $1", [user_email]);
 
         if (response.rows.length === 0) {
-            return res.json("User not found");
+            return res.status(401).json({error:"User not found"});
         } else {
             const validity = await bcrypt.compare(user_password, response.rows[0].user_password);
 
             if (!validity) {
-                return res.json("Invalid Password");
+                return res.status(401).json({error:"Invalid Password"});
             }
             token = jwtgenerator(response.rows[0].id);
             return res.json({"token":token ,"role":response.rows[0].user_role});
@@ -29,7 +30,7 @@ router.post("/login", validinfo, async (req, res) => {
 
 router.post("/register", validinfo, async (req, res) => {
     try {
-        const { user_name, user_email, user_password } = req.body;
+        const { user_email, user_password, user_name } = req.body;
         const user = await pool.query("SELECT * FROM authorise WHERE user_email = $1", [user_email]);
 
         if (user.rows.length !== 0) {
@@ -38,7 +39,7 @@ router.post("/register", validinfo, async (req, res) => {
 
         const saltRound = 10;
         const salt = await bcrypt.genSalt(saltRound);
-        const bcryptpassword = await bcrypt.hash("user_password", salt);
+        const bcryptpassword = await bcrypt.hash(user_password, salt);
 
         const newuser = await pool.query("INSERT INTO authorise (user_name, user_email, user_password, user_role) VALUES ($1, $2, $3, $4) RETURNING *", [user_name, user_email, bcryptpassword,"USER"]);
 
@@ -49,6 +50,14 @@ router.post("/register", validinfo, async (req, res) => {
         return res.status(500).send("Server error");
     }
 });
-
+router.get("/is-verify",authorisation,async(req,res)=>{
+    try {
+        res.json(true);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("server Error");
+    }
+}
+);
 
 module.exports = router;

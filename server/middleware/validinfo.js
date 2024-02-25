@@ -1,5 +1,5 @@
 const validinfo = (req,res,next) =>{
-    const {user_email,user_name,user_password}= req.body;
+    const {user_name,user_email,user_password}= req.body;
     function validEmail(user_email)
         {
             

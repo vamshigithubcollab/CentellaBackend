@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from "react";
 import {Link} from "react-router-dom"
-const Login=({setAuth })=>{
+const Register=({setAuth })=>{
     const [inputs,setInputs]=useState({
         email:"",
         password:"",
+        name:""
     })
-    const {email,password}=inputs;
+    const {email,password,name}=inputs;
     const onChange=(e)=>{
         setInputs({...inputs,[e.target.name]
         : e.target.value});
@@ -14,9 +15,10 @@ const Login=({setAuth })=>{
         e.preventDefault();
         try {
             const user_email=email;
+            const user_name=name;
             const user_password=password;
-            const body={user_email,user_password};
-            const response=await fetch("http://localhost:5000/auth/login",{
+            const body={user_email,user_password,user_name};
+            const response=await fetch("http://localhost:5000/auth/register",{
                 method:"POST",
                 headers:{"content-Type":"application/json"}
                 ,
@@ -24,14 +26,7 @@ const Login=({setAuth })=>{
             });
             console.log(body);
             const parseRes=await response.json();
-            const role=parseRes.role;
             localStorage.setItem("token",parseRes.token)
-            if(role === 'ADMIN'){
-              window.location.href="/admin";
-            }
-            else{
-              window.location.href="/user";
-            }
 
             setAuth(true);
         } catch (err) {
@@ -41,7 +36,7 @@ const Login=({setAuth })=>{
      return(
         <Fragment>
             <div className="container">
-            <h1 className="text-center my-5">Login</h1>
+            <h1 className="text-center my-5">Register</h1>
             <form onSubmit={onSubmitForm}>
                 <input 
                     type="email" 
@@ -50,7 +45,6 @@ const Login=({setAuth })=>{
                     className="form-control my-3"
                     value={email}
                     onChange={e=>onChange(e)}
-                    required
                 />
                 <input 
                     type="password" 
@@ -59,16 +53,23 @@ const Login=({setAuth })=>{
                     className="form-control my-3"
                     value={password}
                     onChange={e=>onChange(e)}
-                    required
+                />
+                <input 
+                    type="text" 
+                    name="name" 
+                    placeholder="name" 
+                    className="form-control my-3"
+                    value={name}
+                    onChange={e=>onChange(e)}
                 />
                 <button className="btn btn-success btn-block">Submit</button>
             </form>
             <div className="mt-5 text-center">
-                <Link to="/">New User ..? then Login</Link>
+                <Link to="/">Already registered in ..? then Login</Link>
             </div>
             </div>
         </Fragment>
      );
 };
 
-export default Login;
+export default Register;

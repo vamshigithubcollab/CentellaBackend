@@ -9,7 +9,6 @@ app.use(cors());
 
 app.use("/auth",require("./routes/loginroute"));
 
-
 app.listen(5000,()=>{
     console.log("listening to port at 5000");
 })
