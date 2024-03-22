@@ -1,0 +1,4 @@
+p, admin, /admin, read
+p, user, /user, read
+g, Admin, admin
+g, User, user

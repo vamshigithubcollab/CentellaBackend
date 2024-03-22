@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const jwtgenerator = require("../utils/jwtgenerator");
 const validinfo = require("../middleware/validinfo");
 const authorisation=require("../middleware/authorisation");
+const nodemailer = require("nodemailer");
+
 
 router.post("/login", validinfo, async (req, res) => {
     try {
@@ -19,7 +21,34 @@ router.post("/login", validinfo, async (req, res) => {
             if (!validity) {
                 return res.status(401).json({error:"Invalid Password"});
             }
-            token = jwtgenerator(response.rows[0].id);
+            const token = jwtgenerator(response.rows[0].id);
+
+            //sending mail using nodemailer
+            const transporter=nodemailer.createTransport({
+                service:"gmail",
+                auth:{
+                    user:"manasavirivinti@gmail.com",
+                    pass:"manasa@2005",
+                },
+            });
+
+            const mailOptions={
+                from:"manasavirivinti@gmail.com",
+                to:user_email,
+                subject:"Login Successful",
+                text:`Hello ${response.rows[0].user_name},\n\n You have successfully Logged in......`,
+
+            };
+
+            transporter.sendMail(mailOptions,(error,info)=>{
+                if(error){
+                    console.error("error sending email:",error);
+                }else{
+                    console.log("Email sent:",info.response);
+                }
+            });
+
+
             return res.json({"token":token ,"role":response.rows[0].user_role});
         }
     } catch (error) {
@@ -44,7 +73,9 @@ router.post("/register", validinfo, async (req, res) => {
         const newuser = await pool.query("INSERT INTO authorise (user_name, user_email, user_password, user_role) VALUES ($1, $2, $3, $4) RETURNING *", [user_name, user_email, bcryptpassword,"USER"]);
 
         // Return the newly created user data
-        return res.json(newuser.rows[0]);
+        // return res.json(newuser.rows[0]);
+        const token = jwtgenerator(newuser.rows[0].user_id);
+        return res.json({ "token":token,"role": newuser.rows[0].user_role });
     } catch (error) {
         console.error(error.message);
         return res.status(500).send("Server error");
