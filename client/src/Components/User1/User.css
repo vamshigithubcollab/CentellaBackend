@@ -22,3 +22,11 @@
   margin: auto;
   justify-content: center;
   }
+  .logcardhead{
+    background-color: rgb(216, 228, 213);
+}
+.logcard{
+    width: 400px;
+    height: 300px;
+    box-shadow: 1px 2px 5px rgb(167, 192, 167);
+}

@@ -5,7 +5,7 @@ import './Navbar.css';
 const Navbar = ({ isAuthenticated }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light navbarcss">
-      <Link className="navbar-brand" to="/">Sci-Com</Link>
+      <Link className="navbar-brand" to="/user/profile">Fitness App</Link>
       <button 
         className="navbar-toggler" 
         type="button" 

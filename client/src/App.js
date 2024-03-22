@@ -54,8 +54,8 @@ function App() {
             <Route exact path="/login" render={props =>!isAuthenticated ? (<Login {...props} setAuth={setAuth} notify={notify}/>):(<Redirect to="/user" />)}/>
             <Route exact path="/register" render={props =>!isAuthenticated ? (<Register {...props} setAuth={setAuth} notify={notify} />):(<Redirect to="/login" />)}/>
             <Route exact path="/user/profile" component={UserProfile} />
-            </Switch>
-            </div>
+          </Switch>
+          </div>
       </Fragment>
     </Router>     
   );

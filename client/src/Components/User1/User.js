@@ -34,7 +34,16 @@ const User = ({ setAuth }) => {
             setShowUserData(false);
         }
     };
+    const [role, setRole] = useState("");
+    const handleRoleSelection = (selectedRole) => {
+        setRole(selectedRole);
+      };
     
+      const isButtonSelected = (buttonRole) => {
+        return buttonRole === role
+          ? "btn-success select"
+          : "btn-outline-success not-select";
+      };
     const toggleUserData = () => {
         if (showUserData) {
             setUserData({});
@@ -48,7 +57,7 @@ const User = ({ setAuth }) => {
         
         <div className="video-background videoplay">
             <video src={videoplay} autoPlay loop muted type='video/mp4' />
-            <div className="content">
+            <div className="content mt-5">
                 <div className="container text-center mt-5">
                 <h1 style={{color:"black"}}>Logged into the application</h1>
                 {localStorage.getItem("accessToken") && (
@@ -72,7 +81,69 @@ const User = ({ setAuth }) => {
                 {/* <div id="page-wrap" >
                 <Outlet />
                 </div> */}
+                <div className="d-flex justify-content mt-5"> {/* Flexbox container */}
+                <div className="card logcard mx-3">
+                <div className="card-body"> {/* New container for content */}
+                    <p>A proper diet is more important to maintain a proper health and stay fit</p>
+                    <img
+                      src="https://graphicspedia.net/wp-content/uploads/2018/04/The-Key-to-Proper-Nutrition-A-Balanced-Diet-Infographic.jpg"
+                      width={"200px"}
+                      height={"150px"}
+                      alt="Diet"
+                    />
+                  </div>
+                  <div className="card-footer"> {/* New container for button */}
+                    <button
+                      className={`btn ${isButtonSelected("student")}`}
+                      onClick={() => handleRoleSelection("student")}
+                    >
+                      Diet
+                    </button>
+                  </div>
                 </div>
+                <div className="card logcard mx-3">
+                <div className="card-body"> {/* New container for content */}
+                    <p>A proper diet is more important to maintain a proper health and stay fit</p>
+                    <img
+                      src="https://graphicspedia.net/wp-content/uploads/2018/04/The-Key-to-Proper-Nutrition-A-Balanced-Diet-Infographic.jpg"
+                      width={"200px"}
+                      height={"150px"}
+                      alt="Diet"
+                    />
+                  </div>
+                  <div className="card-footer"> {/* New container for button */}
+                    <button
+                      className={`btn ${isButtonSelected("student")}`}
+                      onClick={() => handleRoleSelection("student")}
+                    >
+                      Tracking
+                    </button>
+                  </div>
+                </div>
+                <div className="card logcard mx-3">
+                <div className="card-body"> {/* New container for content */}
+                    <p>A proper diet is more important to maintain a proper health and stay fit</p>
+                    <img
+                      src="https://graphicspedia.net/wp-content/uploads/2018/04/The-Key-to-Proper-Nutrition-A-Balanced-Diet-Infographic.jpg"
+                      width={"200px"}
+                      height={"150px"}
+                      alt="Diet"
+                    />
+                  </div>
+                  <div className="card-footer"> {/* New container for button */}
+                    <button
+                      className={`btn ${isButtonSelected("student")}`}
+                      onClick={() => handleRoleSelection("student")}
+                    >
+                      Exercises
+                    </button>
+                  </div>
+                </div>
+                
+              </div>
+                </div>
+                
+                
             </div>
             
         </div>

@@ -6,16 +6,19 @@ import {MdCloudUpload} from 'react-icons/md'
 function Profile() {
 
   let [editName,setEditName] = useState(false);
-  let [editEmail,setEditEmail] = useState(false);
+  let [editGender,setEditGender] = useState(false);
+  let [editAge, setEditAge] = useState(false);
+  let [editHeight, setEditHeight] = useState(false);
+  let [editWeight, setEditWeight] = useState(false);
   let [editMobile,setEditMobile] = useState(false);
   let [isUpdated,setIsUpdated] = useState(false)
-  //studentDetails
-  let [stdName,setStdName] = useState('')
-  let [stdRoll,setStdRoll] = useState('')
-  let [stdBatch,setStdBatch] = useState('')
-  let [stdSection,setStdSection] = useState('')
-  let [stdEmail,setStdEmail] = useState('')
-  let [stdMobile,setStdMobile] = useState('')
+  //User Details
+  let [userName,setUserName] = useState('')
+  let [userGender,setUserGender] = useState('')
+  let [userAge,setUserAge] = useState('')
+  let [userHeight,setUserHeight] = useState('')
+  let [userWeight,setUserWeight] = useState('')
+  let [userMobile,setuserMobile] = useState('')
   //forms
   const nameForm = useForm();
   const emailForm = useForm();
@@ -92,26 +95,22 @@ function Profile() {
           <h3 className='text-start mb-5'>Personal Details</h3>
           <div className="row  p-0 m-0">
 
-            {/* Student Name */}
+            {/* Name */}
               <div className="col-sm-4 text-start p-0 py-1 m-0  ">
-                <label htmlFor="name" className='fw-bold'>Student Name</label>
+                <label htmlFor="name" className='fw-bold'>Name</label>
               </div>
-{/* onSubmit={nameForm.handleSubmit(handleName)}
-onSubmit={emailForm.handleSubmit(handleEmail)}
-onSubmit={mobileForm.handleSubmit(handleMobile)}
- */}
+
               <form className='row col-sm-8' >
                 <div className="col-sm-9 text-start p-0 py-1  m-0">
                   <input 
                     type="text"
                     name="name"
                     id="name" 
-                    defaultValue={stdName} 
+                    defaultValue={userName} 
                     disabled={!editName}
                     className='border fw-bold text-dark rounded'
                     {...nameForm.register('name' ,{required:true})}
-                  />
-                  
+                  />                  
                 </div>  
                 <div className="col-sm-3  p-0 m-0 text-start ">
                   {editName?
@@ -122,74 +121,83 @@ onSubmit={mobileForm.handleSubmit(handleMobile)}
               {nameForm.formState.errors.name?.type==='required' && <p className="text-danger">*This field shouldn't be empty</p> }
             <hr  className='m-1 p-0'/>
 
-            {/* Student Roll */}
+            {/* Gender */}
             <div className="col-sm-4 text-start p-0 py-1 m-0  ">
-              <label htmlFor="studentRoll" className='fw-bold'>Student Roll</label>
+              <label htmlFor="studentRoll" className='fw-bold'>Gender</label>
             </div>
-            <div className="col-sm-6  text-start p-0 py-1  m-0  ">
-              <input 
-                type="text"
-                name="studentRoll"
-                 id="studentRoll" 
-                 value={stdRoll} 
-                 disabled
-                className='border  fw-bold  text-dark rounded'
-              />
+            <form className='row col-sm-8' >
+                <div className="col-sm-9 text-start p-0 py-1  m-0">
+                  <input 
+                    type="text"
+                    className='border fw-bold text-dark rounded'
+                    {...nameForm.register('name' ,{required:true})}
+                  />                  
+                </div>  
+                <div className="col-sm-3  p-0 m-0 text-start ">
+                  {editGender?
+                  <button type='submit' className="btn text-secondary"><IoIosSend size={'25px'} className='text-success'/></button>: 
+                  <button type='button' onClick={(e)=>{e.preventDefault();setEditGender(true)}} className='btn text-secondary'><MdModeEditOutline size={'25px'} className='text-warning'/></button>}
+                </div>
+              </form>
+            <hr  className='m-1 p-0'/>
+            
+
+            {/* Age */}
+            <div className="col-sm-4 text-start p-0 py-1 m-0  ">
+              <label htmlFor="section" className='fw-bold'>Age</label>
             </div>
+            <form className='row col-sm-8' >
+                <div className="col-sm-9 text-start p-0 py-1  m-0">
+                  <input 
+                    type="number"
+                    className='border fw-bold text-dark rounded'
+                    {...nameForm.register('name' ,{required:true})}
+                  />                  
+                </div>  
+                <div className="col-sm-3  p-0 m-0 text-start ">
+                  {editAge?
+                  <button type='submit' className="btn text-secondary"><IoIosSend size={'25px'} className='text-success'/></button>: 
+                  <button type='button' onClick={(e)=>{e.preventDefault();setEditAge(true)}} className='btn text-secondary'><MdModeEditOutline size={'25px'} className='text-warning'/></button>}
+                </div>
+              </form>
             <hr  className='m-1 p-0'/>
 
-            {/* Section */}
+            {/* Height */}
             <div className="col-sm-4 text-start p-0 py-1 m-0  ">
-              <label htmlFor="section" className='fw-bold'>Section</label>
+              <label htmlFor="Batch" className='fw-bold'>Height</label>
             </div>
-            <div className="col-sm-6  text-start p-0 py-1  m-0  ">
-              <input 
-                type="text"
-                name="section"
-                 id="section" 
-                 value={stdSection} 
-                 disabled={true}
-                className='border  fw-bold  text-dark rounded'
-              />
-            </div>
+            <form className='row col-sm-8' >
+                <div className="col-sm-9 text-start p-0 py-1  m-0">
+                  <input 
+                    type="number"
+                    className='border fw-bold text-dark rounded'
+                    {...nameForm.register('name' ,{required:true})}
+                  />                  
+                </div>  
+                <div className="col-sm-3  p-0 m-0 text-start ">
+                  {editHeight?
+                  <button type='submit' className="btn text-secondary"><IoIosSend size={'25px'} className='text-success'/></button>: 
+                  <button type='button' onClick={(e)=>{e.preventDefault();setEditHeight(true)}} className='btn text-secondary'><MdModeEditOutline size={'25px'} className='text-warning'/></button>}
+                </div>
+              </form>
             <hr  className='m-1 p-0'/>
 
-            {/* Batch */}
+            {/* Weight */}
             <div className="col-sm-4 text-start p-0 py-1 m-0  ">
-              <label htmlFor="Batch" className='fw-bold'>Batch</label>
-            </div>
-            <div className="col-sm-6  text-start p-0 py-1  m-0  ">
-              <input 
-                type="text"
-                name="Batch"
-                id="Batch" 
-                value={stdBatch} 
-                disabled
-                className='border  fw-bold  text-dark rounded'
-              />
-            </div>
-            <hr  className='m-1 p-0'/>
-
-            {/* Email */}
-            <div className="col-sm-4 text-start p-0 py-1 m-0  ">
-              <label htmlFor="mail" className='fw-bold'>Email</label>
+              <label htmlFor="mail" className='fw-bold'>Weight</label>
             </div>
             <form className='row col-sm-8' >
               <div className="col-sm-9  text-start p-0 py-1  m-0  ">
                 <input
-                  type="email"
-                  name="mail"
-                  id="mail"
-                  defaultValue={stdEmail}
-                  disabled={!editEmail} 
+                  type="number"
                   className='border  fw-bold  text-dark rounded'
                   {...emailForm.register('mail' ,{required:true})}
                 />
               </div>
               <div className="col-sm-3 p-0 m-0 text-start ">
-                {editEmail?
+                {editWeight?
                 <button type='submit' className="btn text-secondary"><IoIosSend size={'25px'} className='text-success'/></button>: 
-                <button type='button' onClick={(e)=>{e.preventDefault();setEditEmail(true)}} className='btn text-secondary'><MdModeEditOutline size={'25px'} className='text-warning'/></button>}
+                <button type='button' onClick={(e)=>{e.preventDefault();setEditWeight(true)}} className='btn text-secondary'><MdModeEditOutline size={'25px'} className='text-warning'/></button>}
               </div>
             </form>
             {emailForm.formState.errors.mail?.type==='required' && <p className="text-danger">This field shouldn't be empty</p> }
@@ -203,9 +211,7 @@ onSubmit={mobileForm.handleSubmit(handleMobile)}
               <div className="col-sm-9  text-start p-0 py-1  m-0  ">
                 <input 
                   type="number"
-                  name="mobile"
-                  id="mobile" 
-                  defaultValue={stdMobile} 
+                  defaultValue={userMobile} 
                   disabled={!editMobile}
                   className='border  fw-bold  text-dark rounded'
                   {...mobileForm.register('mobile' ,{required:true , minLength:10 , maxLength:10 })}
@@ -220,13 +226,11 @@ onSubmit={mobileForm.handleSubmit(handleMobile)}
             {mobileForm.formState.errors.mobile?.type === 'required' && <p className="text-danger">*This field shouldn't empty</p> }
             {mobileForm.formState.errors.mobile?.type === 'minLength' && <p className="text-danger">*This field should have length 10</p> }
             {mobileForm.formState.errors.mobile?.type === 'maxLength' && <p className="text-danger">*This field should have length 10</p> }
-            <hr  className='m-1 p-0'/>
-
-            
-            
-
+            <hr  className='m-1 p-0'/>    
           </div>
-
+          <div>
+          <button className="btn btn-secondary btn-block" style={{fontWeight:"bolder"}}>Submit</button>
+          </div>
         </div>
       </div>
     </div>
