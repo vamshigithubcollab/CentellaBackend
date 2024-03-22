@@ -85,10 +85,13 @@ function Profile() {
 //   },[isUpdated])
 
   
-  
+const handleback=()=>{
+  window.location.href="/user";
+}
 
   return (
     <div className='  container'>
+      <button className='btn btn-danger mt-3' onClick={handleback}>Back to dashboard</button>
       <div className="row  mt-5 ">
         {/* Personal Details */}
         <div className="col-lg-6 mt-0 m-auto p-0 m-0">
@@ -229,7 +232,7 @@ function Profile() {
             <hr  className='m-1 p-0'/>    
           </div>
           <div>
-          <button className="btn btn-secondary btn-block" style={{fontWeight:"bolder"}}>Submit</button>
+          <button className="btn btn-success btn-block" style={{fontWeight:"bolder"}}>Submit</button>
           </div>
         </div>
       </div>

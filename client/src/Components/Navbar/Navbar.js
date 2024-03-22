@@ -17,20 +17,20 @@ const Navbar = ({ isAuthenticated }) => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav ml-auto ">
+      <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul className="navbar-nav">
           {isAuthenticated ? (
-            <li className="nav-item d-flex">
+            <li className="nav-item">
               <Link className="nav-link" to="/"></Link>
               <button 
-                className="btn btn-outline-success btn-sm"
+                className="btn btn-outline-success btn-sm mb-3 mx-3"
                 onClick={()=>{
                     localStorage.clear();
                     window.location.href="/login";
                 }}
               >
                 <span className="login-text">Logout</span>
-                </button> 
+              </button> 
             </li>
           ) : null}
         </ul>
