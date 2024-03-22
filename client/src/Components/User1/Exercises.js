@@ -88,7 +88,9 @@ const ExercisePage = () => {
   const handleback=()=>{
     window.location.href="/user";
 }
-
+const handleStart=()=>{
+  window.location.href="/user/tracking";
+}
   // Render exercise list in card form
   const renderExerciseCards = (exerciseList) => {
     const cards = [];
@@ -110,9 +112,9 @@ const ExercisePage = () => {
 
   return (
     <div>
-        <button className='btn btn-danger mt-3' onClick={handleback}>Back to dashboard</button>
+    <button className='btn btn-danger mt-3' onClick={handleback}>Back to dashboard</button>
     <div className="exercise-page-container">
-        <h1>Exercise Page</h1>
+        <h1 className='mb-3'>Exercise Page</h1>
       <div className="level-buttons-container">
         <button className="level-button" onClick={() => setSelectedLevel('Beginner')}>Beginner</button>
         <button className="level-button" onClick={() => setSelectedLevel('Intermediate')}>Intermediate</button>
@@ -125,7 +127,9 @@ const ExercisePage = () => {
             {selectedLevel === 'Beginner' && renderExerciseCards(beginnerExercises)}
             {selectedLevel === 'Intermediate' && renderExerciseCards(intermediateExercises)}
             {selectedLevel === 'Hard' && renderExerciseCards(hardExercises)}
-          </div>
+            </div>
+            <button className='btn btn-success' onClick={handleStart}>Start Practising</button>
+          
         </div>
       )}
     </div>
