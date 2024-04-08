@@ -7,6 +7,8 @@ import img1 from './GitHub-Logo.png';
 
 
 const CLIENT_ID="1ffe90f1710c8433e834";
+const CLIENT_IDlinkedin = "86csquir6e765h";
+const REDIRECT_URI = "http://localhost:5000/linkedin/callback";
 
 const Login=({setAuth })=>{
      const [rerender,setRerender]=useState(false);
@@ -221,18 +223,51 @@ useEffect(() => {
         + "&prompt=select_account");
    };
 
-   //twitter oath
-   
+   //linkedin oath
+
+   const handleLinkedInLogin = () => {
+    window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${CLIENT_IDlinkedin}&redirect_uri=${REDIRECT_URI}&scope=r_liteprofile%20r_emailaddress`;
+};
+   useEffect(() => {
+    const handleLinkedInCallback = async () => {
+        const code = new URLSearchParams(window.location.search).get("code");
+        if (code) {
+            try {
+                const requestBody = {
+                    grant_type: "authorization_code",
+                    code: code,
+                    redirect_uri: "http://localhost:5000/linkedin/callback",
+                    client_id: "86csquir6e765h",
+                    client_secret: "9ctYChFi863yQEXK",
+                };
+                const response = await fetch("https://www.linkedin.com/oauth/v2/accessToken", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams(requestBody).toString(),
+                });
+                const data = await response.json();
+                // Send data.access_token to your backend for authentication
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+    };
+
+    handleLinkedInCallback();
+}, []);
     
      return(
         <Fragment>
             <div className="d-flex justify-content-center">
                 
-                <div className="video-background">
+                <div className="video-background">  
                     <video src={videoplay} autoPlay loop muted type='video/mp4' />
                     <div className="content">
                         <div className="container">
-                            <div className="row justify-content-md-center mt-5" >
+                            <div className="row justify-content-md-center mt-5" >     
+                            <h1 className="text-center mt-2" style={{fontWeight:"bolder"}}>Login</h1>
                                 <div className="col-md-6 b1 my-2">
                                     <h3 className=" my-3 " style={{color:'black',fontWeight:'bolder'}}>Enter your credentials</h3>
                                     <form onSubmit={onSubmitForm}>
@@ -259,14 +294,16 @@ useEffect(() => {
                                     {error && <div className="alert alert-danger mt-3">{error}</div>}
                                 </div>
                                 <div className="col-md-6 text-center b2" >
-                                    <h3 className="text-center my-3" style={{color:'whitesmoke',fontWeight:'bolder'}}>Using gmail or github</h3>
+                                    <h3 className="text-center my-3" style={{color:'black',fontWeight:'bolder'}}>Using gmail or github</h3>
                                     <div id="signInDiv"></div>
                                     <div>
                                         <button onClick={githublogin} className="btn btn-secondary mt-5" style={{fontWeight:"bolder"}}>
                                             <img src="https://logos-world.net/wp-content/uploads/2020/11/GitHub-Symbol.png" width={"60px"} height={"30px"}></img>
                                             GitHub Login</button>
                                     </div>
-                                    
+                                    <button onClick={handleLinkedInLogin} className="btn btn-secondary mt-5" style={{ fontWeight: "bolder" }}>
+                                LinkedIn Login
+                            </button>
                                 </div>
                                 <div className="container mt-4">
                                     <Link to="/register"  style={{color:"whitesmoke",fontSize:'30px',fontWeight:"bolder",textShadow:'5px 5px 5px 50px white'}}>New User ..? then Register</Link>

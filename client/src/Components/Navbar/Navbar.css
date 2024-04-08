@@ -3,16 +3,17 @@
     font-size: 20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 500;
-    height: 50px;
+    height: 57px;
   }
-  
+  .logo1{
+    box-shadow: 2px 2px 1px gray;
+  }
   .logo {
     box-shadow: 2px 2px 1px gray;
   }
   
   .navbarcss {
-    background-color: rgb(216, 228, 213);
-    box-shadow: 1px 2px 5px rgb(167, 192, 167);
+    background-color: rgb(230, 226, 239);
   }
   
   .btn-outline-success.btn-sm {

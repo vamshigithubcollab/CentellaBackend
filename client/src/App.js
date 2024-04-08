@@ -11,10 +11,7 @@ import {ToastContainer} from 'react-toastify';
 import {toast} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Components/Navbar/Navbar";
-import UserProfile from "./Components/User1/UserSidebar/UserProfile/UserProfile";
-import Quiz from "./Components/User1/Quiz";
-import Tracking from "./Components/User1/Tracking";
-import Exercises from "./Components/User1/Exercises";
+import UserProfile from "./Components/User1/UserProfile";
 
 function App() {
   const [isAuthenticated,setIsAuthenticated]=useState(false);
@@ -57,10 +54,9 @@ function App() {
             <Route exact path="/user" render={props =>isAuthenticated ? (<User {...props} setAuth={setAuth} notify={notify}/>):(<Redirect to="/login" />)}/>
             <Route exact path="/login" render={props =>!isAuthenticated ? (<Login {...props} setAuth={setAuth} notify={notify}/>):(<Redirect to="/user" />)}/>
             <Route exact path="/register" render={props =>!isAuthenticated ? (<Register {...props} setAuth={setAuth} notify={notify} />):(<Redirect to="/login" />)}/>
-            <Route exact path="/user/profile" component={UserProfile} />
-            <Route exact path="/user/quiz" component={Quiz} />
-            <Route exact path="/user/tracking" component={Tracking} />
-            <Route exact path="/user/exercises" component={Exercises} />
+            {/* <Route exact path="/user/profile" component={UserProfile} /> */}
+            <Route exact path="/user/profile" render={props =>isAuthenticated ? (<UserProfile {...props} setAuth={setAuth} notify={notify}/>):(<Redirect to="/login" />)}/>
+            
           </Switch>
           </div>
       </Fragment>
