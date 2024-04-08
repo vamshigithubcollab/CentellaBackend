@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const pool = require("../db")
+const bcrypt = require("bcrypt");
 const authorisation = require("../middleware/authorisation");
 
 router.get("/",authorisation,async(req,res)=>{
@@ -15,5 +16,4 @@ router.get("/",authorisation,async(req,res)=>{
         res.status(500).json("Server Error");
     }
 })
-
 module.exports =router;

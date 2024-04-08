@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwtgenerator = require("../utils/jwtgenerator");
 const validinfo = require("../middleware/validinfo");
 const authorisation=require("../middleware/authorisation");
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 
 
 router.post("/login", validinfo, async (req, res) => {
@@ -23,30 +23,30 @@ router.post("/login", validinfo, async (req, res) => {
             }
             const token = jwtgenerator(response.rows[0].id);
 
-            //sending mail using nodemailer
-            const transporter=nodemailer.createTransport({
-                service:"gmail",
-                auth:{
-                    user:"manasavirivinti@gmail.com",
-                    pass:"manasa@2005",
-                },
-            });
+            // //sending mail using nodemailer
+            // const transporter=nodemailer.createTransport({
+            //     service:"gmail",
+            //     auth:{
+            //         user:"manasavirivinti@gmail.com",
+            //         pass:"manasa@2005",
+            //     },
+            // });
 
-            const mailOptions={
-                from:"manasavirivinti@gmail.com",
-                to:user_email,
-                subject:"Login Successful",
-                text:`Hello ${response.rows[0].user_name},\n\n You have successfully Logged in......`,
+            // const mailOptions={
+            //     from:"manasavirivinti@gmail.com",
+            //     to:user_email,
+            //     subject:"Login Successful",
+            //     text:`Hello ${response.rows[0].user_name},\n\n You have successfully Logged in......`,
 
-            };
+            // };
 
-            transporter.sendMail(mailOptions,(error,info)=>{
-                if(error){
-                    console.error("error sending email:",error);
-                }else{
-                    console.log("Email sent:",info.response);
-                }
-            });
+            // transporter.sendMail(mailOptions,(error,info)=>{
+            //     if(error){
+            //         console.error("error sending email:",error);
+            //     }else{
+            //         console.log("Email sent:",info.response);
+            //     }
+            // });
 
 
             return res.json({"token":token ,"role":response.rows[0].user_role});
@@ -90,5 +90,8 @@ router.get("/is-verify",authorisation,async(req,res)=>{
     }
 }
 );
+
+
+
 
 module.exports = router;
